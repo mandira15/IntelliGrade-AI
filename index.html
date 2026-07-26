@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="IntelliGrade AI — Honeywell's AI-powered Grade Change Intelligence for Paper Manufacturing. Predict, prevent, and optimize transition losses using real-time predictive AI."/>
+<title>IntelliGrade AI | Honeywell — Intelligent Grade Change Intelligence</title>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+
+<!-- Charts -->
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<!-- D3 for correlation graph -->
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+
+<!-- Styles -->
+<link rel="stylesheet" href="css/main.css"/>
+<link rel="stylesheet" href="css/landing.css"/>
+<link rel="stylesheet" href="css/dashboard.css"/>
+<link rel="stylesheet" href="css/components.css"/>
+<link rel="stylesheet" href="css/training.css"/>
+</head>
+
+<body>
+
+<!-- ============================== LANDING PAGE ============================== -->
+<div id="landing" class="landing-page">
+  <canvas id="landing-canvas"></canvas>
+  <div class="grid-bg"></div>
+  <div class="landing-overlay"></div>
+
+  <!-- Floating sensor badges -->
+  <div class="sensor-badges">
+    <div class="sensor-badge" id="sb1">
+      <span class="s-label">Steam Pressure</span>
+      <span class="s-value" id="sb1v">8.52 bar</span>
+    </div>
+    <div class="sensor-badge" id="sb2">
+      <span class="s-label">Basis Weight</span>
+      <span class="s-value" id="sb2v">123.8 gsm</span>
+    </div>
+    <div class="sensor-badge" id="sb3">
+      <span class="s-label">Machine Speed</span>
+      <span class="s-value" id="sb3v">685 m/min</span>
+    </div>
+    <div class="sensor-badge" id="sb4">
+      <span class="s-label">Moisture</span>
+      <span class="s-value" id="sb4v">5.2%</span>
+    </div>
+    <div class="sensor-badge" id="sb5">
+      <span class="s-label">Prediction AI</span>
+      <span class="s-value" style="color:var(--hw-red)">⬤ ACTIVE</span>
+    </div>
+  </div>
+
+  <!-- Nav -->
+  <nav class="landing-nav">
+    <a class="landing-logo" href="#" onclick="return false;">
+      <div class="landing-logo-icon">H</div>
+      <div class="landing-logo-text">
+        <span class="landing-logo-product">IntelliGrade AI</span>
+        <span class="landing-logo-company">Honeywell Process Solutions</span>
+      </div>
+    </a>
+    <ul class="landing-nav-links">
+      <li><button class="btn btn-secondary btn-sm" onclick="openApp('dashboard')">Features</li></button></li>
+      <li><button class="btn btn-secondary btn-sm" onclick="openApp('dashboard')">Architecture</button></li>
+      <li><button class="btn btn-secondary btn-sm" onclick="openApp('dashboard')">Industries</button></li>
+      <li><button class="btn btn-secondary btn-sm" onclick="openApp('dashboard')">Documentation</button></li>
+    </ul>
+    <div class="landing-nav-actions">
+      <button class="btn btn-secondary btn-sm" onclick="openApp('dashboard')">Sign In</button>
+      <button class="btn btn-primary btn-sm" onclick="openApp('dashboard')">Get Started</button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-badge">
+      <div class="hero-badge-dot"></div>
+      AI-Powered — Predictive Intelligence Engine v2.4
+    </div>
+    <h1 class="hero-title">Intelligent Grade<br/><span class="accent">Change Intelligence</span></h1>
+    <div class="hero-subtitle">
+      <strong>Predict.</strong> &nbsp;<strong>Prevent.</strong> &nbsp;<strong>Optimize.</strong>
+    </div>
+    <p class="hero-tagline">Reduce paper grade transition losses by up to 67% using AI-powered predictive intelligence that warns you 5–15 minutes before deviations occur.</p>
+
+    <div class="hero-cta">
+      <button class="btn-hero-primary" onclick="openApp('dashboard')">
+        <span>⚡</span> Start Monitoring
+      </button>
+      <button class="btn-hero-secondary" onclick="openApp('dashboard')">
+        <span>🏭</span> View Live Plant
+      </button>
+      <button class="btn-hero-secondary" onclick="openApp('simulator')">
+        <span>▶</span> Watch AI Demo
+      </button>
+    </div>
+
+    <!-- Live Stats -->
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-value success">97.3%</span>
+        <span class="hero-stat-label">Prediction Accuracy</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-value red">5–15 min</span>
+        <span class="hero-stat-label">Early Warning</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-value">67%</span>
+        <span class="hero-stat-label">Loss Reduction</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-value success">₹4.82L</span>
+        <span class="hero-stat-label">Monthly Savings</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-value">532+</span>
+        <span class="hero-stat-label">Transitions Learned</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features-section">
+    <div style="max-width:1200px;margin:0 auto">
+      <div style="text-align:center">
+        <h5 style="color:var(--hw-red);margin-bottom:8px;">POWERED BY HONEYWELL AI</h5>
+        <h2 style="color:var(--text-primary);margin-bottom:12px;">Enterprise-Grade Predictive Intelligence</h2>
+        <p style="max-width:500px;margin:0 auto;font-size:0.9rem;">Purpose-built for paper grade transitions. Continuously learns from every run.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon red">🧠</div>
+          <h3>Predictive Deviation Detection</h3>
+          <p>LSTM + XGBoost models predict Basis Weight, Moisture, and Caliper deviations 5–15 minutes ahead with 97%+ accuracy.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon success">⚡</div>
+          <h3>Real-Time Recommendations</h3>
+          <p>AI-generated setpoint adjustments with historical evidence, expected improvement percentages, and operator explainability.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon warning">🔍</div>
+          <h3>Explainable AI</h3>
+          <p>Every prediction backed by SHAP values, historical references, correlation strength, and confidence intervals. No black boxes.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon info">🌐</div>
+          <h3>Correlation Discovery</h3>
+          <p>Continuously discovers new variable correlations across 500+ transitions. Finds hidden relationships operators wouldn't notice.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon red">🔬</div>
+          <h3>Transition Simulator</h3>
+          <p>Simulate multiple corrective scenarios in a digital twin before applying changes to the real machine. Zero risk testing.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon success">📊</div>
+          <h3>Continuous Learning</h3>
+          <p>Every operator acceptance or rejection improves the model. AI learns your plant's unique patterns and operator preferences.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================== APP SHELL ============================== -->
+<div id="app" class="app-shell" style="display:none">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon">H</div>
+      <div class="sidebar-logo-text">
+        <span class="product-name">IntelliGrade AI</span>
+        <span class="company-name">Honeywell</span>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">Operations</div>
+      <div class="nav-item active" data-page="dashboard" onclick="navigate(this)">
+        <div class="nav-icon">📊</div> Dashboard
+      </div>
+      <div class="nav-item" data-page="liveplant" onclick="navigate(this)">
+        <div class="nav-icon">🏭</div> Live Plant
+      </div>
+      <div class="nav-item" data-page="predictions" onclick="navigate(this)">
+        <div class="nav-icon">🧠</div> Predictions
+        <div class="nav-badge pulse">3</div>
+      </div>
+      <div class="nav-item" data-page="recommendations" onclick="navigate(this)">
+        <div class="nav-icon">⚡</div> Recommendations
+        <div class="nav-badge">2</div>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">Intelligence</div>
+      <div class="nav-item" data-page="correlations" onclick="navigate(this)">
+        <div class="nav-icon">🌐</div> Correlations
+      </div>
+      <div class="nav-item" data-page="history" onclick="navigate(this)">
+        <div class="nav-icon">📈</div> Historical Analysis
+      </div>
+      <div class="nav-item" data-page="simulator" onclick="navigate(this)">
+        <div class="nav-icon">🔬</div> Simulator
+        <div class="nav-badge" style="background:var(--success);color:#000">NEW</div>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">Management</div>
+      <div class="nav-item" data-page="operators" onclick="navigate(this)">
+        <div class="nav-icon">👤</div> Operator Decisions
+      </div>
+      <div class="nav-item" data-page="health" onclick="navigate(this)">
+        <div class="nav-icon">❤️</div> Machine Health
+      </div>
+      <div class="nav-item" data-page="reports" onclick="navigate(this)">
+        <div class="nav-icon">📄</div> Reports
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">Training</div>
+      <div class="nav-item" data-page="training" onclick="navigate(this)" style="background:linear-gradient(90deg,rgba(204,0,0,0.06),transparent);border-left:2px solid rgba(204,0,0,0.3)">
+        <div class="nav-icon">🎓</div> Decision Challenge
+        <div class="nav-badge" style="background:linear-gradient(135deg,#CC0000,#FF3300);color:white;animation:badgePulse 2s ease-in-out infinite">LIVE</div>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">System</div>
+      <div class="nav-item" data-page="architecture" onclick="navigate(this)">
+        <div class="nav-icon">🏗️</div> Architecture
+      </div>
+      <div class="nav-item" data-page="presentation" onclick="navigate(this)">
+        <div class="nav-icon">🎯</div> Presentation
+      </div>
+      <div class="nav-item" data-page="settings" onclick="navigate(this)">
+        <div class="nav-icon">⚙️</div> Settings
+      </div>
+    </div>
+
+    <!-- Bottom user info -->
+    <div style="margin-top:auto;padding:var(--spacing-md);border-top:1px solid var(--border-default);">
+      <div style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:var(--radius-md);background:var(--bg-elevated);">
+        <div style="width:32px;height:32px;background:var(--hw-red);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.75rem;color:white;flex-shrink:0;">MS</div>
+        <div>
+          <div style="font-size:0.8rem;font-weight:600;color:var(--text-primary)">Mandira Singh</div>
+          <div style="font-size:0.65rem;color:var(--text-muted)">Senior Operator</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+    <!-- Alarm Strip -->
+    <div class="alarm-strip" id="alarmStrip">
+      <span class="alarm-icon">🔴</span>
+      <div class="alarm-scroll" id="alarmScroll">
+        <span>⚠️ CRITICAL: Basis Weight deviation predicted in 4 min — AI Confidence 97% &nbsp;&nbsp;&nbsp;</span>
+        <span>⚡ Steam Pressure rising abnormally — Recommendation available &nbsp;&nbsp;&nbsp;</span>
+        <span>🔔 Machine Health: Stock Pump — Maintenance due in 14 days &nbsp;&nbsp;&nbsp;</span>
+        <span>⚠️ CRITICAL: Basis Weight deviation predicted in 4 min — AI Confidence 97% &nbsp;&nbsp;&nbsp;</span>
+        <span>⚡ Steam Pressure rising abnormally — Recommendation available &nbsp;&nbsp;&nbsp;</span>
+        <span>🔔 Machine Health: Stock Pump — Maintenance due in 14 days &nbsp;&nbsp;&nbsp;</span>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-breadcrumb">
+        <span>Honeywell</span>
+        <span>›</span>
+        <span>IntelliGrade AI</span>
+        <span>›</span>
+        <span class="current" id="headerBreadcrumb">Dashboard</span>
+      </div>
+      <div class="header-right">
+        <div class="status-indicator">
+          <div class="status-dot"></div>
+          Live — GSM 120 → GSM 160
+        </div>
+        <div class="header-time" id="headerTime">--:--:--</div>
+        <button class="btn-icon alarm" id="alarmBtn" onclick="toggleAlarms()" title="Alarms">🔔</button>
+        <div class="header-avatar" title="Mandira Singh">MS</div>
+      </div>
+    </header>
+
+    <!-- Page Container -->
+    <div class="page-content">
+
+      <!-- ===== DASHBOARD PAGE ===== -->
+      <div id="page-dashboard" class="page active">
+
+        <!-- Transition Progress -->
+        <div class="transition-progress">
+          <div class="progress-header">
+            <div>
+              <span class="label-sm">Active Transition</span>
+              <div style="margin-top:4px;font-size:1rem;font-weight:700;color:var(--text-primary)">GSM 120 → GSM 160 &nbsp;•&nbsp; <span style="color:var(--warning)">Medium Risk</span></div>
+            </div>
+            <div style="text-align:right">
+              <span class="value-medium" id="progressPct" style="color:var(--hw-red)">68.0%</span>
+              <div class="label-sm" style="margin-top:4px">⏱ <span id="timeRemaining">4 min</span> remaining</div>
+            </div>
+          </div>
+          <div class="transition-bar">
+            <div class="transition-fill" id="transitionBar" style="width:68%"></div>
+          </div>
+          <div class="progress-labels">
+            <span>Start: GSM 120</span>
+            <span id="transitionPctLabel">68%</span>
+            <span>Target: GSM 160</span>
+          </div>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="kpi-grid">
+          <div class="kpi-card status-running">
+            <div class="kpi-icon">🔄</div>
+            <div class="kpi-label">Machine Status</div>
+            <div class="kpi-value value-success">RUNNING</div>
+            <div class="kpi-sub"><span class="kpi-trend up">↑</span> Normal Operation</div>
+          </div>
+          <div class="kpi-card status-default">
+            <div class="kpi-icon">📄</div>
+            <div class="kpi-label">Current Grade</div>
+            <div class="kpi-value" id="kpiCurrentGrade">GSM 120</div>
+            <div class="kpi-sub">Basis Weight</div>
+          </div>
+          <div class="kpi-card status-info">
+            <div class="kpi-icon">🎯</div>
+            <div class="kpi-label">Target Grade</div>
+            <div class="kpi-value value-info">GSM 160</div>
+            <div class="kpi-sub">Next setpoint</div>
+          </div>
+          <div class="kpi-card status-warning">
+            <div class="kpi-icon">🧠</div>
+            <div class="kpi-label">Prediction Confidence</div>
+            <div class="kpi-value value-warning" id="kpiConfidence">97.3%</div>
+            <div class="kpi-sub"><span class="kpi-trend up">↑</span> AI Engine Active</div>
+          </div>
+          <div class="kpi-card status-critical">
+            <div class="kpi-icon">💸</div>
+            <div class="kpi-label">Current Loss</div>
+            <div class="kpi-value value-danger" id="kpiLoss">₹18,540</div>
+            <div class="kpi-sub">This transition</div>
+          </div>
+          <div class="kpi-card status-running">
+            <div class="kpi-icon">💰</div>
+            <div class="kpi-label">Projected Saving</div>
+            <div class="kpi-value value-success">₹4.82L</div>
+            <div class="kpi-sub">Per month (AI)</div>
+          </div>
+          <div class="kpi-card status-warning">
+            <div class="kpi-icon">⚠️</div>
+            <div class="kpi-label">Overall Risk</div>
+            <div class="kpi-value value-warning">MEDIUM</div>
+            <div class="kpi-sub">Steam pressure rising</div>
+          </div>
+          <div class="kpi-card status-default">
+            <div class="kpi-icon">⏳</div>
+            <div class="kpi-label">Deviation ETA</div>
+            <div class="kpi-value value-red" id="kpiDevETA">4 min</div>
+            <div class="kpi-sub">If no action taken</div>
+          </div>
+        </div>
+
+        <!-- Main Dashboard Layout -->
+        <div class="dashboard-grid">
+          <!-- Left Column -->
+          <div class="dashboard-left">
+
+            <!-- Live Process Panel -->
+            <div class="live-panel">
+              <div class="live-panel-header">
+                <div class="section-title">Live Process Variables</div>
+                <div style="display:flex;align-items:center;gap:8px">
+                  <div class="ai-pulse"></div>
+                  <span style="font-size:0.75rem;color:var(--text-muted)">Updating every 2s</span>
+                </div>
+              </div>
+              <div class="charts-grid" id="chartsGrid">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+
+            <!-- AI Prediction Timeline -->
+            <div class="card">
+              <div class="card-header">
+                <div class="section-title">Prediction Timeline</div>
+                <span class="badge badge-danger">HIGH RISK</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
+                <div class="ai-pulse"></div>
+                <span style="font-size:0.78rem;color:var(--text-secondary)">Basis Weight deviating to <strong style="color:var(--danger)" id="predictedBW">162.4 gsm</strong> in approximately <strong style="color:var(--warning)" id="predictedETA">6 min</strong></span>
+              </div>
+              <div id="predChart" style="width:100%;height:200px;"></div>
+              <div class="timeline" id="timelineRow">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+
+            <!-- Root Cause Analysis -->
+            <div class="card">
+              <div class="card-header">
+                <div class="section-title">Root Cause Analysis</div>
+                <span class="badge badge-red">AI Analyzed</span>
+              </div>
+              <div id="rootCauseList">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right Column -->
+          <div class="dashboard-right">
+
+            <!-- AI Prediction Card -->
+            <div class="prediction-card">
+              <div class="prediction-header">
+                <div class="ai-pulse"></div>
+                <h3>Predictive Intelligence</h3>
+              </div>
+              <div class="label-sm" style="margin-bottom:6px">Future Basis Weight</div>
+              <div class="prediction-main-value" id="predBW">162.4 <span class="prediction-unit">GSM</span></div>
+              <div class="prediction-time">Expected after <strong style="color:var(--warning)" id="predETA2">6 min</strong></div>
+
+              <div style="margin-bottom:10px;">
+                <div style="display:flex;justify-content:space-between;font-size:0.72rem;color:var(--text-muted);margin-bottom:4px">
+                  <span>Deviation Probability</span>
+                  <span id="devProbLabel" style="color:var(--danger);font-weight:700">92%</span>
+                </div>
+                <div class="deviation-bar">
+                  <div class="deviation-fill" id="devProbBar" style="width:92%"></div>
+                </div>
+              </div>
+
+              <div style="background:var(--danger-bg);border:1px solid var(--danger-border);border-radius:var(--radius-md);padding:12px;margin-bottom:14px;font-size:0.78rem;color:var(--text-secondary);line-height:1.5;">
+                <strong style="color:var(--danger)">⚠ Reason:</strong> Steam pressure rising rapidly (+14% in 4min) while machine speed remains unchanged, causing increasing sheet density.
+              </div>
+
+              <!-- Confidence Ring -->
+              <div class="confidence-meter">
+                <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);text-align:center;margin-bottom:8px;">AI Confidence</div>
+                <div class="confidence-ring">
+                  <svg width="80" height="80" viewBox="0 0 80 80">
+                    <circle class="ring-bg" cx="40" cy="40" r="30"/>
+                    <circle class="ring-fill" id="confRing" cx="40" cy="40" r="30"/>
+                  </svg>
+                  <div class="confidence-ring-text" id="confText">97%</div>
+                </div>
+              </div>
+
+              <!-- Inference Sources -->
+              <div style="margin-top:14px;">
+                <div class="label-sm" style="margin-bottom:8px">Source of Inference</div>
+                <div class="inference-sources">
+                  <div class="inference-chip active">📊 Historical Data</div>
+                  <div class="inference-chip active">🔧 Recipe DB</div>
+                  <div class="inference-chip active">🤖 ML Pattern</div>
+                  <div class="inference-chip">📋 Operator Logs</div>
+                  <div class="inference-chip active">⚙️ Honeywell MPC</div>
+                  <div class="inference-chip active">🌐 Correlation</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Digital Twin -->
+            <div class="digital-twin">
+              <div class="live-panel-header">
+                <div class="section-title">Digital Twin</div>
+                <span class="badge badge-success">Live</span>
+              </div>
+              <div class="twin-stages" id="twinStages">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== LIVE PLANT PAGE ===== -->
+      <div id="page-liveplant" class="page">
+        <div class="page-header">
+          <h2>Live Plant Monitor</h2>
+          <p>Real-time sensor overview for Paper Machine PM-3</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--spacing-md);margin-bottom:var(--spacing-lg)">
+          <!-- Variable cards populated by JS -->
+          <div id="liveVarCards"></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="section-title">Full Process Trend — Last 60 seconds</div>
+            <div style="display:flex;gap:8px">
+              <select class="select-input" id="trendVarSelect" onchange="updateFullTrend()">
+                <option value="steamPressure">Steam Pressure</option>
+                <option value="machineSpeed">Machine Speed</option>
+                <option value="basisWeight">Basis Weight</option>
+                <option value="moisture">Moisture</option>
+                <option value="stockFlow">Stock Flow</option>
+                <option value="ash">Ash Content</option>
+                <option value="caliper">Caliper</option>
+                <option value="fillerFlow">Filler Flow</option>
+              </select>
+            </div>
+          </div>
+          <div id="fullTrendChart" style="width:100%;height:320px;"></div>
+        </div>
+      </div>
+
+      <!-- ===== PREDICTIONS PAGE ===== -->
+      <div id="page-predictions" class="page">
+        <div class="page-header">
+          <h2>Predictive Intelligence Engine</h2>
+          <p>Multi-variable deviation predictions with 5–15 minute early warning</p>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 360px;gap:var(--spacing-lg)">
+          <div>
+            <div class="card mb-lg">
+              <div class="card-header">
+                <div class="section-title">Multi-Horizon Prediction</div>
+                <span class="badge badge-warning">LSTM + XGBoost</span>
+              </div>
+              <div id="multiPredChart" style="width:100%;height:320px;"></div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <div class="section-title">Root Cause Contribution</div>
+                <span class="badge badge-red">SHAP Analysis</span>
+              </div>
+              <div style="margin-top:8px;" id="fullRootCause"></div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:var(--spacing-md)">
+            <div class="prediction-card">
+              <div class="prediction-header">
+                <div class="ai-pulse"></div>
+                <h3>Primary Prediction</h3>
+              </div>
+              <div class="label-sm mb-sm">Basis Weight in 6 min</div>
+              <div class="prediction-main-value" id="pred2BW">162.4 <span class="prediction-unit">GSM</span></div>
+              <div class="prediction-time">Current: <span id="currBW2">123.8 gsm</span></div>
+              <div style="margin:14px 0">
+                <div style="display:flex;justify-content:space-between;font-size:0.72rem;color:var(--text-muted);margin-bottom:4px">
+                  <span>Deviation Probability</span>
+                  <span style="color:var(--danger);font-weight:700" id="devProb2Label">92%</span>
+                </div>
+                <div class="deviation-bar">
+                  <div class="deviation-fill" id="devProb2Bar" style="width:92%"></div>
+                </div>
+              </div>
+              <span class="badge badge-danger mb-md" style="width:100%;justify-content:center;">HIGH RISK</span>
+              <div class="xai-box">
+                <div class="xai-box-title">🔍 Why AI Predicted This?</div>
+                <div class="xai-point">Steam pressure has increased 14% in the last 4 minutes.</div>
+                <div class="xai-point">63 previous successful transitions showed similar behavior.</div>
+                <div class="xai-point">Reducing pressure stabilized basis weight in 89% of cases.</div>
+                <div class="xai-point">Expected stabilization: <strong style="color:var(--success)">3.8 minutes</strong></div>
+              </div>
+              <div class="inference-sources" style="margin-top:12px">
+                <div class="inference-chip active">📊 532 Transitions</div>
+                <div class="inference-chip active">95% Confidence</div>
+                <div class="inference-chip active">🆕 New Pattern</div>
+              </div>
+            </div>
+
+            <!-- Secondary predictions -->
+            <div class="card">
+              <div class="card-header">
+                <div class="section-title">Secondary Predictions</div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:10px" id="secPredList">
+                <!-- JS populated -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== RECOMMENDATIONS PAGE ===== -->
+      <div id="page-recommendations" class="page">
+        <div class="page-header">
+          <h2>Recommended Setpoint Optimization</h2>
+          <p>AI-generated corrective actions with explainable reasoning and historical evidence</p>
+        </div>
+        <div id="recsList"><!-- JS populated --></div>
+      </div>
+
+      <!-- ===== CORRELATIONS PAGE ===== -->
+      <div id="page-correlations" class="page correlation-page">
+        <div class="page-header">
+          <h2>Correlation Discovery Engine</h2>
+          <p>AI-discovered variable relationships across 532 grade transitions</p>
+        </div>
+        <div class="network-container" style="position:relative">
+          <svg id="correlation-svg"></svg>
+          <div id="networkTooltip" class="network-tooltip"></div>
+          <div class="network-legend">
+            <div class="legend-item">
+              <div class="legend-line" style="background:var(--hw-red);height:3px;width:30px;border-radius:2px"></div>
+              <span>Strong (>0.8)</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-line" style="background:var(--warning);height:2px;width:30px;border-radius:2px"></div>
+              <span>Medium (0.5–0.8)</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-line" style="background:var(--text-muted);height:1px;width:30px;border-radius:2px"></div>
+              <span>Weak (&lt;0.5)</span>
+            </div>
+            <div class="legend-item" style="margin-left:auto">
+              <div style="width:12px;height:12px;border-radius:50%;background:var(--hw-red);"></div>
+              <span>Target Variable</span>
+            </div>
+            <div class="legend-item">
+              <div style="width:12px;height:12px;border-radius:50%;background:var(--info);"></div>
+              <span>Primary Driver</span>
+            </div>
+            <div class="legend-item">
+              <div style="width:12px;height:12px;border-radius:50%;background:var(--text-muted);"></div>
+              <span>Secondary</span>
+            </div>
+            <div class="legend-item">
+              <span>🆕</span>
+              <span>Newly Discovered</span>
+            </div>
+          </div>
+        </div>
+        <!-- Correlation Table -->
+        <div class="card mt-lg">
+          <div class="card-header">
+            <div class="section-title">Correlation Matrix</div>
+            <span class="badge badge-red">🆕 3 New Discoveries</span>
+          </div>
+          <div id="corrTable"><!-- JS populated --></div>
+        </div>
+      </div>
+
+      <!-- ===== HISTORICAL ANALYSIS PAGE ===== -->
+      <div id="page-history" class="page">
+        <div class="page-header">
+          <h2>Historical Analysis</h2>
+          <p>Learning from 532 past grade transitions</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--spacing-md);margin-bottom:var(--spacing-xl)">
+          <div class="kpi-card status-running">
+            <div class="kpi-label">Total Transitions</div>
+            <div class="kpi-value">532</div>
+            <div class="kpi-sub">Last 12 months</div>
+          </div>
+          <div class="kpi-card status-running">
+            <div class="kpi-label">Success Rate</div>
+            <div class="kpi-value value-success">87.2%</div>
+            <div class="kpi-sub">With AI assist</div>
+          </div>
+          <div class="kpi-card status-default">
+            <div class="kpi-label">Avg Stabilization</div>
+            <div class="kpi-value">8.1 min</div>
+            <div class="kpi-sub">AI: 8.1m vs Manual: 18m</div>
+          </div>
+          <div class="kpi-card status-warning">
+            <div class="kpi-label">Avg Loss Saved</div>
+            <div class="kpi-value value-success">₹28,000</div>
+            <div class="kpi-sub">Per transition</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 340px;gap:var(--spacing-lg)">
+          <div>
+            <div class="card mb-lg">
+              <div class="card-header">
+                <div class="section-title">Transition Performance Trend</div>
+                <span class="badge badge-success">Learning Improving</span>
+              </div>
+              <div id="historyChart" style="width:100%;height:280px;"></div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <div class="section-title">Recent Transitions</div>
+              </div>
+              <div class="history-timeline" id="historyList"><!-- JS populated --></div>
+            </div>
+          </div>
+          <div>
+            <div class="card">
+              <div class="card-header">
+                <div class="section-title">AI Learned Patterns</div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:10px;padding-top:8px" id="learnedPatterns"><!-- JS populated --></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== OPERATOR DECISIONS PAGE ===== -->
+      <div id="page-operators" class="page">
+        <div class="page-header">
+          <h2>Operator Decision Center</h2>
+          <p>Review, accept, modify, or reject AI recommendations. Your feedback improves the model.</p>
+        </div>
+        <div class="learning-meter">
+          <div class="learning-stat">
+            <div class="learning-stat-val green" id="acceptedPct">92%</div>
+            <div class="label-sm" style="margin-top:6px">Accepted</div>
+          </div>
+          <div class="learning-stat">
+            <div class="learning-stat-val red">8%</div>
+            <div class="label-sm" style="margin-top:6px">Rejected</div>
+          </div>
+          <div class="learning-stat">
+            <div class="learning-stat-val blue">+2.3%</div>
+            <div class="label-sm" style="margin-top:6px">Model Improvement</div>
+          </div>
+          <div class="learning-stat">
+            <div class="learning-stat-val" style="color:var(--warning)">147</div>
+            <div class="label-sm" style="margin-top:6px">Total Decisions</div>
+          </div>
+        </div>
+
+        <!-- Active Recommendation -->
+        <div style="margin-bottom:var(--spacing-lg)">
+          <h3 style="color:var(--text-primary);margin-bottom:var(--spacing-md);display:flex;align-items:center;gap:8px">
+            <div class="ai-pulse"></div> Active Recommendation
+          </h3>
+          <div class="decision-card">
+            <div class="decision-card-header">
+              <div class="rec-number">1</div>
+              <div style="flex:1">
+                <div style="font-weight:700;color:var(--text-primary)">Reduce Steam Pressure</div>
+                <div style="font-size:0.72rem;color:var(--text-muted)">Generated 2 min ago • Confidence 96%</div>
+              </div>
+              <span class="badge badge-danger">ACTION REQUIRED</span>
+            </div>
+            <div class="decision-card-body">
+              <div class="rec-row">
+                <div class="rec-param">
+                  <div class="rec-param-label">Current</div>
+                  <div class="rec-param-value">8.5 <small>bar</small></div>
+                </div>
+                <div class="rec-arrow">→</div>
+                <div class="rec-param">
+                  <div class="rec-param-label">Suggested</div>
+                  <div class="rec-param-value suggested">7.9 <small>bar</small></div>
+                </div>
+                <div class="rec-param">
+                  <div class="rec-param-label">Improvement</div>
+                  <div class="rec-param-value" style="color:var(--success)">−63%</div>
+                </div>
+              </div>
+              <div class="xai-box">
+                <div class="xai-box-title">🔍 Why AI Recommends This?</div>
+                <div class="xai-point">Steam pressure increased 14% in last 4 minutes — abnormal for GSM 160 grade.</div>
+                <div class="xai-point">63 similar historical transitions — reducing pressure stabilized BW in 89% of cases.</div>
+                <div class="xai-point">Expected stabilization: 3.8 minutes. Loss prevention: ₹23,800.</div>
+              </div>
+              <div class="decision-actions mt-lg">
+                <button class="btn btn-success" onclick="acceptRec(this)">✓ Accept</button>
+                <button class="btn btn-danger" onclick="rejectRec(this)">✗ Reject</button>
+                <button class="btn btn-secondary" onclick="modifyRec()">✏ Modify</button>
+                <button class="btn btn-secondary" onclick="navigate(document.querySelector('[data-page=simulator]'))">🔬 Simulate First</button>
+              </div>
+              <textarea class="note-input" placeholder="Add operator note (optional)..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Decision History -->
+        <div class="card">
+          <div class="card-header">
+            <div class="section-title">Decision History</div>
+            <span class="badge badge-info">Last 30 days</span>
+          </div>
+          <div style="margin-top:var(--spacing-md)" id="decisionHistory"><!-- JS populated --></div>
+        </div>
+      </div>
+
+      <!-- ===== MACHINE HEALTH PAGE ===== -->
+      <div id="page-health" class="page">
+        <div class="page-header">
+          <h2>Machine Health Monitor</h2>
+          <p>AI-powered predictive maintenance for Paper Machine PM-3</p>
+        </div>
+        <div style="display:grid;grid-template-columns:280px 1fr;gap:var(--spacing-xl)">
+          <div class="card text-center">
+            <div class="health-score-large">
+              <div class="health-ring">
+                <svg width="160" height="160" viewBox="0 0 160 160">
+                  <circle class="hr-bg" cx="80" cy="80" r="70"/>
+                  <circle class="hr-fill" id="healthRingFill" cx="80" cy="80" r="70"/>
+                </svg>
+                <div class="health-ring-text">
+                  <div class="health-pct">98%</div>
+                  <div class="health-label">Overall Health</div>
+                </div>
+              </div>
+              <div style="font-size:0.875rem;color:var(--text-muted);margin-top:var(--spacing-md)">Machine PM-3</div>
+              <div style="margin-top:var(--spacing-md)">
+                <div class="badge badge-success" style="font-size:0.8rem;padding:6px 16px">Excellent Condition</div>
+              </div>
+              <div style="margin-top:var(--spacing-md);text-align:left;width:100%">
+                <div style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px">Status Summary</div>
+                <div style="font-size:0.8rem;color:var(--text-secondary);line-height:2">
+                  ✅ All critical systems normal<br/>
+                  ⚠️ Stock Pump — attention needed<br/>
+                  📅 Next maintenance: 14 days
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="component-cards" id="componentCards"><!-- JS populated --></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== SIMULATOR PAGE ===== -->
+      <div id="page-simulator" class="page simulator-page">
+        <div class="page-header">
+          <h2>⚗ Transition Simulator</h2>
+          <p>Test corrective scenarios in a digital twin before applying to the real machine. Zero risk. Full insight.</p>
+        </div>
+
+        <div style="background:var(--info-bg);border:1px solid rgba(45,156,219,0.2);border-radius:var(--radius-md);padding:14px 20px;margin-bottom:var(--spacing-xl);display:flex;align-items:center;gap:12px;font-size:0.875rem;color:var(--text-secondary)">
+          <span style="font-size:1.2rem">💡</span>
+          <div>Select a scenario below to simulate it in the digital twin. Compare predicted stabilization times, material losses, and confidence scores before making real machine changes.</div>
+        </div>
+
+        <div class="scenarios-grid" id="scenariosGrid"><!-- JS populated --></div>
+
+        <div class="sim-chart-area">
+          <div class="sim-chart-header">
+            <div class="section-title">Scenario Comparison — Predicted Basis Weight Recovery</div>
+            <div style="display:flex;gap:8px" id="simLegend"><!-- populated --></div>
+          </div>
+          <div id="sim-chart" style="width:100%;height:300px;"></div>
+        </div>
+
+        <!-- Comparison Table -->
+        <div class="card mt-lg">
+          <div class="card-header">
+            <div class="section-title">Scenario Analysis Summary</div>
+          </div>
+          <div id="simTable"><!-- JS populated --></div>
+        </div>
+      </div>
+
+      <!-- ===== REPORTS PAGE ===== -->
+      <div id="page-reports" class="page">
+        <div class="page-header">
+          <h2>Transition Reports</h2>
+          <p>Generate comprehensive transition intelligence reports</p>
+        </div>
+        <div class="report-config">
+          <div class="report-options">
+            <div style="font-weight:700;color:var(--text-primary);margin-bottom:var(--spacing-md)">Report Contents</div>
+            <div id="reportOptions"><!-- JS populated --></div>
+            <div style="margin-top:var(--spacing-lg)">
+              <div style="font-weight:600;color:var(--text-primary);margin-bottom:8px;font-size:0.875rem">Report Period</div>
+              <select class="select-input" style="width:100%">
+                <option>Last Transition</option>
+                <option>Last 7 Days</option>
+                <option>Last 30 Days</option>
+                <option>Custom Range</option>
+              </select>
+            </div>
+            <button class="btn btn-primary" style="width:100%;margin-top:var(--spacing-lg);justify-content:center" onclick="generateReport()">
+              📄 Generate Report
+            </button>
+            <button class="btn btn-secondary" style="width:100%;margin-top:8px;justify-content:center" onclick="downloadReport()">
+              ⬇ Download PDF
+            </button>
+          </div>
+          <div class="report-preview">
+            <div class="report-preview-header">
+              <div class="report-preview-title">IntelliGrade AI — Transition Report</div>
+              <div class="report-preview-sub">PM-3 • GSM 120 → GSM 160 • Generated: <span id="reportDate">--</span></div>
+            </div>
+            <div class="report-preview-body" id="reportBody"><!-- JS populated --></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== ARCHITECTURE PAGE ===== -->
+      <div id="page-architecture" class="page">
+        <div class="page-header">
+          <h2>AI Architecture</h2>
+          <p>End-to-end pipeline from IoT sensors to continuous learning</p>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 340px;gap:var(--spacing-xl)">
+          <div class="card">
+            <div class="arch-flow" id="archFlow"><!-- JS populated --></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:var(--spacing-lg)">
+            <div class="card">
+              <div class="card-header">
+                <div class="section-title">Technology Stack</div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:var(--spacing-md)" id="techStack"><!-- JS populated --></div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <div class="section-title">Model Performance</div>
+              </div>
+              <div id="modelPerf"><!-- JS populated --></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== PRESENTATION PAGE ===== -->
+      <div id="page-presentation" class="page">
+        <div class="page-header">
+          <h2>Executive Presentation</h2>
+          <p>IntelliGrade AI — Business case and innovation summary</p>
+        </div>
+        <div id="presentationSlides"><!-- JS populated --></div>
+      </div>
+
+      <!-- ===== SETTINGS PAGE ===== -->
+      <div id="page-settings" class="page">
+        <div class="page-header">
+          <h2>Settings</h2>
+          <p>Configure prediction sensitivity, thresholds, and AI behavior</p>
+        </div>
+        <div id="settingsContent"><!-- JS populated --></div>
+      </div>
+
+      <!-- ===== TRAINING PAGE ===== -->
+      <div id="page-training" class="page"></div>
+
+    </div><!-- end page-content -->
+
+    <!-- Alarm Panel -->
+    <div class="alarm-panel" id="alarmPanel">
+      <div class="alarm-panel-header">
+        <div style="font-weight:700;color:var(--text-primary)">Active Alarms <span id="alarmCountBadge" style="color:var(--danger);font-size:0.85rem">(3)</span></div>
+        <button class="btn btn-sm btn-secondary" onclick="toggleAlarms()">✕ Close</button>
+      </div>
+      <div class="alarm-list" id="alarmList"><!-- JS populated --></div>
+    </div>
+
+  </main>
+</div>
+
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
+</body>
+</html>
