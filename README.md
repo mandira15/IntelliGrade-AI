@@ -336,6 +336,12 @@ The UI follows Honeywell's industrial enterprise design language:
 **Fonts:** `Inter` (UI text) + `JetBrains Mono` (sensor values, KPIs)
 
 ---
+## Snapshots
+[Home](<screenshots\home.png>)
+
+[Predictions](<screenshots\predictions.png>)
+
+[Decision Challenge](<screenshots\decisionChallenge.png>)
 
 ## License
 
